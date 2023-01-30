@@ -24,6 +24,14 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        //Definicion de permisos gate admin-only para
+        // otorgar acceso a usuario administrador a ciertas páginas
+        Gate::define('admin-only', function ($user) {
+            if ($user->isAdmin == 1) {
+                return true;
+            }
+            return false;
+        });
 
         //
     }
